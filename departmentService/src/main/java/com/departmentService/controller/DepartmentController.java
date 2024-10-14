@@ -28,7 +28,9 @@ public class DepartmentController {
         return ResponseEntity.ok(savedDept);
     }
 
+    @GetMapping("/department/{deptid}")
     public ResponseEntity<Department> getDepartmentDetails(@PathVariable("deptid") Long deptid){
+        System.out.println("getDepartmentDetails : "+deptid);
         Optional<Department> deptDetails = service.getDepartmentDetails(deptid);
         return ResponseEntity.ok(deptDetails.get());
     }
