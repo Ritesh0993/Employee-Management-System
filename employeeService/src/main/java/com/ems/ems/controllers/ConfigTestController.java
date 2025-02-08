@@ -13,6 +13,10 @@ public class ConfigTestController {
     @Value("${spring.datasource.url}")
     private String dbConnectionUrl;
 
+    /**
+     * Get the configuration settings of the application.
+     * @return a string containing the configuration values.
+     */
     @GetMapping("/config")
     public String getConfig() {
         return "Server Port: " + serverPort + ", DB Connection URL: " + dbConnectionUrl;

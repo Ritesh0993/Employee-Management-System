@@ -3,7 +3,6 @@ package com.ems.ems.controllers;
 import com.ems.ems.models.Employee;
 import com.ems.ems.service.DepartmentClient;
 import com.ems.ems.service.EmployeeService;
-import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +11,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/employee/")
-public class employeeController {
+public class EmployeeController {
 
     @Autowired
     EmployeeService employeeService;
@@ -42,6 +42,11 @@ public class employeeController {
         return ResponseEntity.ok(savedEmployee);
     }
 
+    /**
+     * Saves a list of employees in the database.
+     * @param employee the list of employees to be saved
+     * @return a ResponseEntity containing the list of saved employees
+     */
     @PostMapping("saveall")
     public ResponseEntity<List<Employee>> saveBulkEmployeeDetails(@RequestBody List<Employee> employee) {
         List<Employee> savedEmployee = employeeService.saveBulkEmployeeData(employee);
@@ -88,6 +93,18 @@ public class employeeController {
                 .retrieve()
                 .bodyToMono(String.class);
 
+    }
+
+    @GetMapping("/getEmployeeDetails/{id}")
+    public Optional<Employee> getEmployeeById(@PathVariable Long id){
+        return employeeService.getEmployeeById(id);
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getAllEmployees")
+    public List<Employee> getAllEmployees(){
+        return employeeService.getAllEmployeeList();
     }
 
 

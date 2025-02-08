@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class EmployeeService {
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
@@ -31,9 +32,6 @@ public class EmployeeService {
     public List<Employee> getAllEmployeeList(){
         return employeeRepository.findAll();
     }
-
-
-
 
 
 
